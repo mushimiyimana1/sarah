@@ -1,78 +1,542 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Book Registration Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Registration | Innovate Library</title>
 
-        .container {
-            width: 400px;
-            margin: 50px auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px gray;
-        }
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 
-        h2 {
-            text-align: center;
-        }
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        input, select, textarea {
-            width: 100%;
-            padding: 8px;
-            margin: 8px 0;
-        }
+    :root {
+      --ink:    #0f1117;
+      --cream:  #f5f0e8;
+      --gold:   #c8973a;
+      --rust:   #b84c2e;
+      --mist:   #dcd6cb;
+      --white:  #ffffff;
+      --radius: 4px;
+    }
 
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    /* HEADER */
+    header {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 3px solid var(--gold);
+    }
+
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--ink);
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      letter-spacing: .04em;
+    }
+
+    header span {
+      font-size: .78rem;
+      opacity: .55;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* LAYOUT */
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      max-width: 1000px;
+      width: 100%;
+      margin: 50px auto;
+      background: var(--white);
+      box-shadow: 0 8px 60px rgba(0,0,0,.12);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    /* SIDEBAR */
+    aside {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 48px 36px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      justify-content: center;
+    }
+
+    aside::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        135deg,
+        transparent,
+        transparent 28px,
+        rgba(200,151,58,.06) 28px,
+        rgba(200,151,58,.06) 29px
+      );
+    }
+
+    aside h2 {
+      position: relative;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      line-height: 1.2;
+    }
+
+    aside h2 em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    aside p {
+      position: relative;
+      font-size: .88rem;
+      line-height: 1.8;
+      opacity: .7;
+    }
+
+    .steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: relative;
+    }
+
+    .steps li {
+      display: flex;
+      gap: 14px;
+      font-size: .82rem;
+      opacity: .75;
+    }
+
+    .step-num {
+      width: 26px;
+      height: 26px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--gold);
+      font-size: .72rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .steps li strong {
+      display: block;
+      color: var(--cream);
+      margin-bottom: 3px;
+      font-weight: 500;
+    }
+
+    /* FORM PANEL */
+    .form-panel {
+      padding: 50px;
+    }
+
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 10px;
+      margin-bottom: 28px;
+    }
+
+    .field-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .field.full {
+      grid-column: span 2;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #666;
+    }
+
+    label span.req {
+      color: var(--rust);
+    }
+
+    input,
+    select,
+    textarea {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem;
+      padding: 12px 14px;
+      border: 1.5px solid var(--mist);
+      border-radius: var(--radius);
+      background: var(--cream);
+      color: var(--ink);
+      outline: none;
+      transition: .2s;
+      width: 100%;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200,151,58,.15);
+      background: var(--white);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    /* BUTTONS */
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 34px;
+      border-top: 1px solid var(--mist);
+      padding-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .form-actions p {
+      font-size: .8rem;
+      color: #888;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    button {
+      font-family: 'DM Sans', sans-serif;
+      border: none;
+      cursor: pointer;
+      transition: .2s;
+      border-radius: var(--radius);
+    }
+
+    .reset-btn {
+      background: none;
+      border: 1.5px solid var(--mist);
+      color: #777;
+      padding: 11px 22px;
+      font-size: .85rem;
+    }
+
+    .reset-btn:hover {
+      border-color: var(--rust);
+      color: var(--rust);
+    }
+
+    .submit-btn {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 12px 30px;
+      font-size: .9rem;
+      font-weight: 500;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .submit-btn:hover {
+      background: var(--gold);
+      color: var(--ink);
+    }
+
+    /* SUCCESS */
+    #success-msg {
+      display: none;
+      background: #e8f5e9;
+      border-left: 4px solid #388e3c;
+      color: #1b5e20;
+      padding: 15px 18px;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      font-size: .9rem;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: .75rem;
+      color: #aaa;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+        margin: 0;
+        border-radius: 0;
+      }
+
+      aside {
+        padding: 36px 24px;
+      }
+
+      .form-panel {
+        padding: 36px 24px;
+      }
+
+      .field-group {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: span 1;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="container">
-    <h2>Book Registration Form</h2>
+<header>
+  <div class="logo-mark">I</div>
 
-    <form>
-        <label>Book Title:</label>
-        <input type="text" name="title" required>
+  <div>
+    <h1>Innovate Library</h1>
+    <span>Digital Book Registration System</span>
+  </div>
+</header>
 
-        <label>Author Name:</label>
-        <input type="text" name="author" required>
+<main>
 
-        <label>ISBN Number:</label>
-        <input type="text" name="isbn" required>
+  <!-- SIDEBAR -->
+  <aside>
 
-        <label>Category:</label>
-        <select name="category">
+    <h2>
+      Book<br/>
+      <em>Registration</em><br/>
+      Form
+    </h2>
+
+    <p>
+      Register books into the digital library system for proper
+      organization, tracking, and academic access.
+    </p>
+
+    <ol class="steps">
+
+      <li>
+        <div class="step-num">1</div>
+        <div>
+          <strong>Book Details</strong>
+          Enter title, author, and ISBN information
+        </div>
+      </li>
+
+      <li>
+        <div class="step-num">2</div>
+        <div>
+          <strong>Category</strong>
+          Select the appropriate book category
+        </div>
+      </li>
+
+      <li>
+        <div class="step-num">3</div>
+        <div>
+          <strong>Description</strong>
+          Add a summary or additional information
+        </div>
+      </li>
+
+      <li>
+        <div class="step-num">4</div>
+        <div>
+          <strong>Submit</strong>
+          Save the book into the library system
+        </div>
+      </li>
+
+    </ol>
+
+  </aside>
+
+  <!-- FORM -->
+  <div class="form-panel">
+
+    <div id="success-msg">
+      ✅ Book registered successfully into the library system.
+    </div>
+
+    <form id="book-form">
+
+      <p class="form-title">Book Information</p>
+
+      <div class="field-group">
+
+        <div class="field">
+          <label>
+            Book Title <span class="req">*</span>
+          </label>
+
+          <input
+            type="text"
+            name="title"
+            placeholder="Enter book title"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label>
+            Author Name <span class="req">*</span>
+          </label>
+
+          <input
+            type="text"
+            name="author"
+            placeholder="Enter author name"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label>
+            ISBN Number <span class="req">*</span>
+          </label>
+
+          <input
+            type="text"
+            name="isbn"
+            placeholder="e.g. 978-3-16-148410-0"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label>Category</label>
+
+          <select name="category">
             <option>Science</option>
             <option>Technology</option>
             <option>Education</option>
             <option>Novel</option>
-        </select>
+          </select>
+        </div>
 
-        <label>Publication Date:</label>
-        <input type="date" name="date">
+        <div class="field">
+          <label>Publication Date</label>
 
-        <label>Description:</label>
-        <textarea name="description"></textarea>
+          <input type="date" name="date"/>
+        </div>
 
-        <button type="submit">Register Book</button>
+        <div class="field full">
+          <label>Description</label>
+
+          <textarea
+            name="description"
+            placeholder="Write a short description about the book..."
+          ></textarea>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+
+        <p>
+          Fields marked
+          <span style="color:var(--rust)">*</span>
+          are required
+        </p>
+
+        <div class="btn-group">
+          <button type="reset" class="reset-btn">
+            Clear Form
+          </button>
+
+          <button type="submit" class="submit-btn">
+            Register Book →
+          </button>
+        </div>
+
+      </div>
+
     </form>
-</div>
+
+  </div>
+
+</main>
+
+<footer>
+  © 2026 Innovate Library · Rwanda · All Rights Reserved
+</footer>
+
+<script>
+  const form = document.getElementById('book-form');
+  const successMsg = document.getElementById('success-msg');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    successMsg.style.display = 'block';
+
+    successMsg.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+  });
+
+  form.addEventListener('reset', function() {
+    successMsg.style.display = 'none';
+  });
+</script>
 
 </body>
 </html>
