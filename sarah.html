@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Book Registration Form</h2>
+
+    <form>
+        <label>Book Title:</label>
+        <input type="text" name="title" required>
+
+        <label>Author Name:</label>
+        <input type="text" name="author" required>
+
+        <label>ISBN Number:</label>
+        <input type="text" name="isbn" required>
+
+        <label>Category:</label>
+        <select name="category">
+            <option>Science</option>
+            <option>Technology</option>
+            <option>Education</option>
+            <option>Novel</option>
+        </select>
+
+        <label>Publication Date:</label>
+        <input type="date" name="date">
+
+        <label>Description:</label>
+        <textarea name="description"></textarea>
+
+        <button type="submit">Register Book</button>
+    </form>
+</div>
+
+</body>
+</html>
